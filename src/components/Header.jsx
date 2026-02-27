@@ -2,7 +2,7 @@ import rasm from "../../public/img/Logo.svg"
 
 function Header() {
   return (
-    <div className="fixed top-0 left-0 right-0 bg-white/30 backdrop-blur shadow-lg/10">
+    <div className="fixed top-0 left-0 right-0 bg-white/0 backdrop-blur shadow-lg/10">
         <nav className="flex justify-between lg:max-w-7xl md:max-w-2xl max-w-xs mx-auto items-center py-6 ">
         <img src={rasm} alt="" />
         <div>

@@ -44,8 +44,8 @@ function Menu() {
       <div className="lg:max-w-7xl md:max-w-2xl max-w-2xs mx-auto">
         <h1 className="text-4xl font-bold font-mono mb-8">Nossos cafés</h1>
         <div className="lg:grid grid-cols-4 gap-8 flex flex-wrap gap-8 my-10">
-          <div className="bg-gray-300 text-center px-4 pb-4 rounded-bl-4xl rounded-tr-4xl transition-all duration-700 hover:rounded-tr-[220px] hover:shadow-[16px_32px_50px_-4px_#000000]">
-          <div className="flex justify-center">
+          <div className="cursor-pointer bg-gray-300 text-center px-4 pb-4 rounded-bl-4xl rounded-tr-4xl transition-all duration-700 hover:rounded-tr-[220px] hover:shadow-[16px_32px_50px_-4px_#000000]">
+          <div className="flex justify-center animate-spin [animation-duration:10s]">
             <img src={img}/>
           </div>
           <button className="p-1 font-bold rounded-xl my-4 bg-[#F1E9C9] text-[#C47F17]">Tradicional</button>
@@ -58,7 +58,7 @@ function Menu() {
               <p>1</p>
               <p className="text-[#8047F8]">+</p>
             </div>
-            <button className="rounded-lg p-2 bg-[#4B2995] text-white"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button className="cursor-pointer rounded-lg p-2 bg-[#4B2995] text-white"><i class="fa-solid fa-cart-shopping"></i></button>
           </div>
           </div>
         </div>
