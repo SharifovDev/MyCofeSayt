@@ -26,7 +26,7 @@ function Login() {
             .then((res) => {
                 localStorage.setItem("token", res.data.access_token)
                 console.log(res);
-                navigate("/jbdvbgsdvdbusd")
+                navigate("/admin12345")
             })
             .catch((err) => {
                 console.log(err)
