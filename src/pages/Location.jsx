@@ -1,13 +1,25 @@
 import Header from "../components/Header";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Location() {
-    
+  const [update, setUpdate] = useState(false);
+  let cards = JSON.parse(localStorage.getItem("cards"));
+  console.log(cards);
+
+  const del = (id) => {
+  let arrs = JSON.parse(localStorage.getItem("cards")) || [];
+  arrs.splice(id, 1);
+  localStorage.setItem("cards", JSON.stringify(arrs));
+  setUpdate(!update);
+};
+
   return (
     <div>
       <div className="mb-30">
         <Header />
       </div>
-      <div className="max-w-7xl mx-auto flex justify-around">
+      <div className="max-w-7xl mx-auto flex flex-wrap md:gap-10 justify-around">
         <div>
           <h1 className="p-4 text-2xl font-bold font-mono">
             Complete seu pedido
@@ -43,40 +55,52 @@ function Location() {
           <h1 className="p-4 text-2xl font-bold font-mono">
             Cafés selecionados
           </h1>
-          <div className="p-8 rounded-bl-3xl rounded-tr-3xl bg-[#F3F2F2]">
-            <div className="flex my-4">
-              <div>
-                <img src=""/>
-              </div>
-              <div>
-                <div className="flex justify-between text-lg mb-3" >
-                  <h1>Expresso Tradicional</h1>
-                  <p className="font-bold">R$ 9,90</p>
+
+          <div className="p-8 rounded-bl-3xl rounded-tr-3xl bg-[#F3F2F2] mb-10">
+            {cards.map((card, index) => (
+              <div className="flex my-4 gap-4">
+                <div>
+                  <img className="rounded-full md:w-20 md:h-20 w-15 h-15" src={card.image} />
                 </div>
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="font-bold text-xl flex gap-5 text-center p-2 pl-5 rounded-lg bg-[#E6E5E5]">
-                    <p className="text-[#8047F8]">-</p>
-                    <p>0</p>
-                    <p className="text-[#8047F8]">+</p>
-                  </div> 
-                  <button className="font-semibold text-lg text-center p-2 rounded-lg bg-[#E6E5E5]">🗑 Remover</button>
+                <div>
+                  <div className="flex justify-between text-lg mb-3">
+                    <h1>{card.name}</h1>
+                    <p className="font-bold">R$ {card.price}</p>
+                  </div>
+                  <div className="grid md:grid-cols-3 gap-2">
+                    <div className="font-bold text-xl flex gap-5 text-center p-2 md:pl-5 pl-14 rounded-lg bg-[#E6E5E5]">
+                      <p className="text-[#8047F8]">-</p>
+                      <p>{card.count}</p>
+                      <p className="text-[#8047F8]">+</p>
+                    </div>
+                    <button
+                      onClick={() => del(index)}
+                      className="font-semibold text-lg text-center p-2 rounded-lg bg-[#E6E5E5]"
+                    >
+                      🗑 Remover
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
             <hr />
             <div className="my-4">
-              <div className="flex justify-between text-lg mb-2">
-                <h1>Total de itens</h1>
-                <p>R$ 29,70</p>
-              </div>
+              {cards.map((card, index) => (
+                <div className="flex justify-between text-lg mb-2">
+                  <h1>{card.name}</h1>
+                  <p>R$ {card.price}</p>
+                </div>
+              ))}
               <div className="flex justify-between text-xl font-bold">
                 <h1>Total</h1>
                 <p>R$ 29,70</p>
               </div>
             </div>
-            <button className="bg-[#DBAC2C] rounded-lg p-2 font-semibold text-lg text-white px-10 mx-18 mt-4">
+           <div className="flex justify-center">
+             <Link to={'/order'} className="bg-[#DBAC2C] rounded-lg p-2 px-20 font-semibold text-lg text-white">
               confirmar pedido
-            </button>
+            </Link>
+           </div>
           </div>
         </div>
       </div>

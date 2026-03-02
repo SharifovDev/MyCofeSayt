@@ -1,4 +1,5 @@
 import rasm from "../../public/img/Logo.svg"
+import { Link } from "react-router-dom"
 
 function Header() {
   return (
@@ -6,13 +7,13 @@ function Header() {
         <nav className="flex justify-between lg:max-w-7xl md:max-w-2xl max-w-xs mx-auto items-center py-6 ">
         <img src={rasm} alt="" />
         <div>
-          <button className="md:mr-8 mr-2 font-semibold p-2 text-[#4B2995] bg-[#EBE5F9] rounded-lg">
+          <Link to={'/'} className="md:mr-8 mr-2 font-semibold p-2 text-[#4B2995] bg-[#EBE5F9] rounded-lg">
             <i class="fa-solid fa-location-dot"></i>
             Porto Alegre, RS
-          </button>
-          <button className="p-2 text-[#C47F17] bg-[#F1E9C9] rounded-lg">
+          </Link>
+          <Link to={'/location'} className="p-2 text-[#C47F17] bg-[#F1E9C9] rounded-lg">
             <i class="fa-solid fa-cart-shopping"></i>
-          </button>
+          </Link>
         </div>
       </nav>
     </div>

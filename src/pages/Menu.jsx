@@ -1,22 +1,60 @@
 import Header from "../components/Header";
 import banner from "../../public/img/Imagem.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Menu() {
+  const navigate=useNavigate()
   let arrs = JSON.parse(localStorage.getItem("arrs"));
-  const [count, setCount] = useState(0);
-  const plus = (id) => {
-    setCount((prev) => ({
-      prev,
-      [id]: (prev[id] || 0) + 1,
-    }));
-  };  
-  const minus = (id) => {
-    setCount((prev) => ({
-      prev,
-      [id]: prev[id] > 0 ? prev[id] - 1 : 0,
-    }));
+  const [shops, setShops] = useState([]);
+
+  useEffect(() => {
+    if (arrs == null) {
+      setShops([]);
+    } else {
+      arrs.map((arr) => {
+        arr["count"] = 0;
+      });
+      setShops([...arrs]);
+    }
+  }, []);
+
+  const plus = (index) => {
+    shops.map((shop, index2) => {
+      if (index == index2) {
+        shop.count = shop.count + 1;
+      }
+    });
+    setShops([...shops]);
   };
+  const minus = (index) => {
+    shops.map((shop, index2) => {
+      if (index == index2) {
+        if (shop.count <= 0) {
+          return;
+        }
+        shop.count = shop.count - 1;
+      }
+    });
+    setShops([...shops]);
+  };
+
+  const order = (id) => {
+    if (shops[id].count > 0) {
+      let cards = JSON.parse(localStorage.getItem("cards"));
+      if (cards === null) {
+        cards = [];
+      }
+      cards.push(shops[id]);
+      localStorage.setItem("cards", JSON.stringify(cards));
+      navigate('/location')
+    }else{
+      alert('Maxsulot tanlang')
+    }
+    shops[id].count=0
+    setShops([...shops]);
+  };
+
   return (
     <div>
       <div className="mb-40">
@@ -71,33 +109,39 @@ function Menu() {
       <div className="lg:max-w-7xl md:max-w-2xl max-w-2xs mx-auto">
         <h1 className="text-4xl font-bold font-mono mb-8">Nossos cafés</h1>
         <div className="lg:grid grid-cols-4 gap-8 flex flex-wrap gap-8 my-10">
-          {arrs.map((arr, index) => (
-            <div className="cursor-pointer bg-gray-200 text-center px-4 pb-4 rounded-bl-4xl rounded-tr-4xl transition-all duration-700 hover:rounded-tr-[220px] hover:shadow-[16px_32px_50px_-4px_#000000]">
+          {shops.map((shop, index) => (
+            <div
+              key={index}
+              className="cursor-pointer bg-gray-200 text-center px-4 pb-4 rounded-bl-4xl rounded-tr-4xl transition-all duration-700 hover:rounded-tr-[220px] hover:shadow-[16px_32px_50px_-4px_#000000]"
+            >
               <div className="flex justify-center">
-                <img className="rounded-full w-30 h-30" src={arr.image} />
+                <img className="rounded-full w-30 h-30" src={shop.image} />
               </div>
               <button className="p-1 font-bold rounded-xl my-4 bg-[#F1E9C9] text-[#C47F17]">
                 Tradicional
               </button>
-              <h1 className="text-2xl font-bold font-mono">{arr.name}</h1>
+              <h1 className="text-2xl font-bold font-mono">{shop.name}</h1>
               <p className="text-[#8D8686] font-medium text-md mt-4">
-                {arr.description}
+                {shop.description}
               </p>
               <div className="flex gap-6 items-center justify-between mt-8">
                 <h1 className="font-medium font-mono">
-                  R$ <b className="text-xl">{arr.price}</b>
+                  R$ <b className="text-xl">{shop.price}</b>
                 </h1>
                 <div className="font-bold text-xl flex gap-5 px-4 p-2 rounded-lg bg-[#E6E5E5]">
                   <p onClick={() => minus(index)} className="text-[#8047F8]">
                     -
                   </p>
-                  <p>{count[index] || 0}</p>
+                  <p>{shop.count || 0}</p>
                   <p onClick={() => plus(index)} className="text-[#8047F8]">
                     +
                   </p>
                 </div>
-                <button className="cursor-pointer rounded-lg p-2 bg-[#4B2995] text-white">
-                  <i class="fa-solid fa-cart-shopping"></i>
+                <button
+                  onClick={() => order(index)}
+                  className="cursor-pointer rounded-lg p-2 bg-[#4B2995] text-white"
+                >
+                  <i className="fa-solid fa-cart-shopping"></i>
                 </button>
               </div>
             </div>
