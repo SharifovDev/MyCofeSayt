@@ -3,6 +3,7 @@ import Admin from './pages/Admin'
 import Orders from './pages/Orders'
 import Login from './components/Login'
 import Location from './pages/Location'
+import Confirm from './pages/Confirm'
 import './App.css'
 import {Routes, Route} from 'react-router-dom'
 
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Menu/>}/>
         <Route path='/admin12345' element={<Admin/>}/>
+        <Route path='/confirm' element={<Confirm/>}/>
         <Route path='/order' element={<Orders/>}/>
         <Route path='/admin' element={<Login/>}/>
         <Route path='/location' element={<Location/>}/>

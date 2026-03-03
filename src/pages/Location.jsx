@@ -41,7 +41,7 @@ function Location() {
     console.log("oldin", orders);
     localStorage.setItem("orders", JSON.stringify(orders));
     console.log("keyin", orders);
-    navigate("/");
+    navigate("/confirm");
     setObj({
       Fullname: "",
       Location: "",
