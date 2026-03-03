@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Menu() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   let arrs = JSON.parse(localStorage.getItem("arrs"));
   const [shops, setShops] = useState([]);
 
@@ -47,11 +47,11 @@ function Menu() {
       }
       cards.push(shops[id]);
       localStorage.setItem("cards", JSON.stringify(cards));
-      navigate('/location')
-    }else{
-      alert('Maxsulot tanlang')
+      navigate("/location");
+    } else {
+      alert("Maxsulot tanlang");
     }
-    shops[id].count=0
+    shops[id].count = 0;
     setShops([...shops]);
   };
 

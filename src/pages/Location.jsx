@@ -1,19 +1,55 @@
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 function Location() {
+  const navigate = useNavigate();
   const [update, setUpdate] = useState(false);
   let cards = JSON.parse(localStorage.getItem("cards"));
-  console.log(cards);
-
   const del = (id) => {
-  let arrs = JSON.parse(localStorage.getItem("cards")) || [];
-  arrs.splice(id, 1);
-  localStorage.setItem("cards", JSON.stringify(arrs));
-  setUpdate(!update);
-};
+    let cards = JSON.parse(localStorage.getItem("cards")) || [];
+    cards.splice(id, 1);
+    localStorage.setItem("cards", JSON.stringify(cards));
+    setUpdate(!update);
+  };
 
+  const [obj, setObj] = useState({
+    Fullname: "",
+    Location: "",
+    Number: "",
+  });
+
+  const change = (e) => {
+    let key = e.target.name;
+    let value = e.target.value;
+    setObj((prev) => {
+      return { ...prev, [key]: value };
+    });
+  };
+  const confirm = () => {
+    if (!obj.Fullname || !obj.Location || !obj.Number) {
+      alert("Inputlarni to'ldiring");
+      return;
+    }
+    let s = [
+      {
+        buyurtmachi: obj,
+        orders: cards,
+      },      
+    ];
+    console.log(s);
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    orders.push(s);
+    console.log('oldin', orders);
+    localStorage.setItem('orders',JSON.stringify(orders))
+    console.log('keyin',orders);
+    navigate("/");
+    setObj({
+      Fullname: "",
+      Location: "",
+      Number: "",
+    });
+  };
   return (
     <div>
       <div className="mb-30">
@@ -36,17 +72,26 @@ function Location() {
             <input
               className="border-2 rounded-lg p-2 font-bold"
               type="text"
-              placeholder="Full name"
+              name="Fullname"
+              value={obj.Fullname}
+              placeholder="Fullname"
+              onChange={change}
             />
             <input
               className="border-2 rounded-lg p-2 font-bold"
               type="text"
+              name="Location"
+              value={obj.Location}
               placeholder="Location"
+              onChange={change}
             />
             <input
               className="border-2 rounded-lg p-2 font-bold"
               type="number"
+              name="Number"
+              value={obj.Number}
               placeholder="Number"
+              onChange={change}
             />
           </div>
         </div>
@@ -60,7 +105,10 @@ function Location() {
             {cards.map((card, index) => (
               <div className="flex my-4 gap-4">
                 <div>
-                  <img className="rounded-full md:w-20 md:h-20 w-15 h-15" src={card.image} />
+                  <img
+                    className="rounded-full md:w-20 md:h-20 w-15 h-15"
+                    src={card.image}
+                  />
                 </div>
                 <div>
                   <div className="flex justify-between text-lg mb-3">
@@ -96,11 +144,14 @@ function Location() {
                 <p>R$ 29,70</p>
               </div>
             </div>
-           <div className="flex justify-center">
-             <Link to={'/order'} className="bg-[#DBAC2C] rounded-lg p-2 px-20 font-semibold text-lg text-white">
-              confirmar pedido
-            </Link>
-           </div>
+            <div className="flex justify-center">
+              <button
+                onClick={confirm}
+                className="bg-[#DBAC2C] rounded-lg p-2 px-20 font-semibold text-lg text-white"
+              >
+                confirmar pedido
+              </button>
+            </div>
           </div>
         </div>
       </div>

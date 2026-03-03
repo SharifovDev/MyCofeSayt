@@ -1,6 +1,7 @@
 import Sidebar from "../components/Sidebar";
 
 function Orders() {
+  JSON.parse(localStorage.getItem)
   return (
     <div>
       <Sidebar />
