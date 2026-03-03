@@ -28,21 +28,19 @@ function Location() {
   };
   const confirm = () => {
     if (!obj.Fullname || !obj.Location || !obj.Number) {
-      alert("Inputlarni to'ldiring");
+      alert("To'liq malumot kiriting ❗");
       return;
     }
-    let s = [
-      {
-        buyurtmachi: obj,
-        orders: cards,
-      },      
-    ];
+    let s = {
+      buyurtmachi: obj,
+      orders: cards,
+    };
     console.log(s);
     let orders = JSON.parse(localStorage.getItem("orders")) || [];
     orders.push(s);
-    console.log('oldin', orders);
-    localStorage.setItem('orders',JSON.stringify(orders))
-    console.log('keyin',orders);
+    console.log("oldin", orders);
+    localStorage.setItem("orders", JSON.stringify(orders));
+    console.log("keyin", orders);
     navigate("/");
     setObj({
       Fullname: "",
@@ -139,6 +137,10 @@ function Location() {
                   <p>R$ {card.price}</p>
                 </div>
               ))}
+              <div className="flex justify-between text-lg mb-2">
+                <h1>Entrega</h1>
+                <p>R$ 3,50</p>
+              </div>
               <div className="flex justify-between text-xl font-bold">
                 <h1>Total</h1>
                 <p>R$ 29,70</p>
