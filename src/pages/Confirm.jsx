@@ -7,7 +7,7 @@ function Confirm() {
       <div className="mb-30">
         <Header />
       </div>
-      <div className="max-w-6xl mx-auto">
+      <div className="lg:max-w-6xl mx-auto py-4 md:max-w-2xl mx-auto max-w-2xs">
         <div>
           <h1 className="font-mono text-3xl text-[#C47F17] font-bold">
             Uhu! Pedido confirmado
@@ -16,7 +16,7 @@ function Confirm() {
             Agora é só aguardar que logo o café chegará até você
           </p>
         </div>
-        <div className="flex justify-between py-4">
+        <div className="lg:flex justify-between">
           <div className="border-2 rounded-tr-4xl rounded-bl-4xl border-l-[#DBAC2C] border-b-[#DBAC2C] border-[#8047F8] p-6 my-6">
             <div className="p-2 flex items-center gap-4">
               <div className="rounded-full p-2 text-white bg-[#8047F8]">

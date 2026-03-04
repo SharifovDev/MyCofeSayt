@@ -7,7 +7,6 @@ function Menu() {
   const navigate = useNavigate();
   let arrs = JSON.parse(localStorage.getItem("arrs"));
   const [shops, setShops] = useState([]);
-
   useEffect(() => {
     if (arrs == null) {
       setShops([]);

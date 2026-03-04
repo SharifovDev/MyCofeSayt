@@ -101,6 +101,7 @@ function Location() {
             />
           </div>
         </div>
+
         <div>
           <h1 className="p-4 text-2xl font-bold font-mono">
             Cafés selecionados

@@ -1,18 +1,28 @@
+import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
+import { useEffect } from "react";
 
 function Admin() {
-  const [edit1,setEdit]=useState(null)
   const [update, setUpdate] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
+
+  const [edit1, setEdit] = useState(null);
   const del = (id) => {
     let arrs = JSON.parse(localStorage.getItem("arrs")) || [];
     arrs.splice(id, 1);
     localStorage.setItem("arrs", JSON.stringify(arrs));
     setUpdate(!update);
   };
-   const edit = (index) => {
+  const edit = (index) => {
     setObj(arrs[index]);
-    setEdit(index)
+    setEdit(index);
   };
   const [obj, setObj] = useState({
     name: "",
@@ -32,27 +42,26 @@ function Admin() {
     });
   };
   const save = () => {
-  if (!obj.name ||!obj.description || !obj.price || !obj.image) {
-    alert("Inputlarni to'ldiring");
-    return;
-  }
-  let arrs = JSON.parse(localStorage.getItem("arrs")) || [];
-  if (edit1 !== null) {
-    arrs[edit1] = obj;
-    setEdit(null);
-  } 
-  else {
-    arrs.push(obj);
-  }
-  localStorage.setItem("arrs", JSON.stringify(arrs));
-  setUpdate(!update);
-  setObj({
-    name: "",
-    price: "",
-    image: "",
-    description: "",
-  });
-};
+    if (!obj.name || !obj.description || !obj.price || !obj.image) {
+      alert("Inputlarni to'ldiring");
+      return;
+    }
+    let arrs = JSON.parse(localStorage.getItem("arrs")) || [];
+    if (edit1 !== null) {
+      arrs[edit1] = obj;
+      setEdit(null);
+    } else {
+      arrs.push(obj);
+    }
+    localStorage.setItem("arrs", JSON.stringify(arrs));
+    setUpdate(!update);
+    setObj({
+      name: "",
+      price: "",
+      image: "",
+      description: "",
+    });
+  };
   return (
     <div className="flex">
       <Sidebar />
