@@ -1,7 +1,15 @@
 import Sidebar from "../components/Sidebar";
+import { useState } from "react";
 
 function Orders() {
   let orders = JSON.parse(localStorage.getItem("orders"));
+  const [update, setUpdate] = useState(false);
+  const del = (id) => {
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    orders.splice(id, 1);
+    localStorage.setItem("orders", JSON.stringify(orders));
+    setUpdate(!update);
+  };
   return (
     <div>
       <Sidebar />
@@ -13,7 +21,10 @@ function Orders() {
           </div>
 
           {orders.map((order, index) => (
-            <div key={index} className="flex justify-between mb-2 border-b-2 rounded-2xl p-2 ">
+            <div
+              key={index}
+              className="flex justify-between mb-2 border-b-2 rounded-2xl p-2 "
+            >
               <div className="rounded-xl p-2 bg-gray-200">
                 <h1 className="font-bold text-lg">
                   Fullname:{order.buyurtmachi.Fullname}
@@ -32,15 +43,28 @@ function Orders() {
                   </div>
                   <div className="text-center flex gap-4">
                     <div>
-                      <img className="w-15 h-15 rounded-full" src={item.image} />
+                      <img
+                        className="w-15 h-15 rounded-full"
+                        src={item.image}
+                      />
                     </div>
                     <div>
                       <h1 className="font-semibold text-lg">${item.price}</h1>
-                    <h1 className="font-semibold text-lg rounded-full bg-gray-100">{item.count}</h1>
+                      <h1 className="font-semibold text-lg rounded-full bg-gray-100">
+                        {item.count}
+                      </h1>
                     </div>
                   </div>
                 </div>
               ))}
+              <div>
+                <button
+                  onClick={() => del(index)}
+                  className="border-2 rounded-lg p-2 font-bold text-red-500"
+                >
+                  🗑 delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
