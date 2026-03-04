@@ -107,7 +107,7 @@ function Menu() {
 
       <div className="lg:max-w-7xl md:max-w-2xl max-w-2xs mx-auto">
         <h1 className="text-4xl font-bold font-mono mb-8">Nossos cafés</h1>
-        <div className="lg:grid grid-cols-4 gap-8 flex flex-wrap gap-8 my-10">
+        <div className="grid lg:grid-cols-4 gap-8 md:grid-cols-2 my-10">
           {shops.map((shop, index) => (
             <div
               key={index}
@@ -127,7 +127,7 @@ function Menu() {
                 <h1 className="font-medium font-mono">
                   R$ <b className="text-xl">{shop.price}</b>
                 </h1>
-                <div className="font-bold text-xl flex gap-5 px-4 p-2 rounded-lg bg-[#E6E5E5]">
+                <div className="font-bold text-xl flex gap-5 px-4 p-2 rounded-lg bg-gray-300">
                   <p onClick={() => minus(index)} className="text-[#8047F8]">
                     -
                   </p>
