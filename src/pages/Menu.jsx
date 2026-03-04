@@ -38,21 +38,22 @@ function Menu() {
     setShops([...shops]);
   };
 
-  const order = (id) => {
-    if (shops[id].count > 0) {
-      let cards = JSON.parse(localStorage.getItem("cards"));
-      if (cards === null) {
-        cards = [];
-      }
-      cards.push(shops[id]);
-      localStorage.setItem("cards", JSON.stringify(cards));
-      navigate("/location");
-    } else {
-      alert("Maxsulot tanlang");
+ const order = () => {
+  const selectedProducts = shops.filter((shop) => shop.count > 0);
+  if (selectedProducts.length > 0) {
+    let cards = JSON.parse(localStorage.getItem("cards"));
+    if (cards === null) {
+      cards = [];
     }
-    shops[id].count = 0;
-    setShops([...shops]);
-  };
+    cards = [...cards, ...selectedProducts];
+    localStorage.setItem("cards", JSON.stringify(cards));
+    const resetShops = shops.map((shop) => ({...shop,count: 0,}));
+    setShops(resetShops);
+    navigate("/location");
+  } else {
+    alert("Maxsulot tanlang");
+  }
+};
 
   return (
     <div>
